@@ -1,0 +1,29 @@
+body {
+    margin: 0;
+    background: linear-gradient(to top, #444 40%, #87ceeb 40%);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    color: white;
+}
+
+.game-wrapper {
+    padding-top: 20px;
+}
+
+canvas {
+    background: #555;
+    border: 3px solid black;
+    display: block;
+    margin: 20px auto;
+}
+
+.hud {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+#restartBtn {
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
