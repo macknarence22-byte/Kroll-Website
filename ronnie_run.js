@@ -20,39 +20,48 @@ function loadImage(name, src) {
     assets[name] = img;
 }
 
-loadImage("ronnie_idle", "assets/charatcter_idle.png");
-loadImage("ronnie_jump", "assets/character_jump.png");
-loadImage("ronnie_duck", "assets/character_duck.png");
-loadImage("car", "assets/car_obstical.png");
+/* ===== LOAD CORRECT FILES ===== */
+
+loadImage("road1", "assets/Road1.png");
+loadImage("road2", "assets/Road2.png");
+
 loadImage("barrier", "assets/barrier_obstical.png");
 loadImage("sign_low", "assets/sign_low_obstical.png");
-loadImage("Roud1", "assets/Road1.png");
-loadImage("Road2", "assets/Road2.png");
+
+loadImage("run", "assets/character.png");
+loadImage("idle", "assets/character_idle.png");
+loadImage("jump", "assets/character_jump.png");
+loadImage("duck", "assets/character_duck.png");
+
+/* ===== PLAYER ===== */
+
 const player = {
-    x: 100,
+    x: 120,
     y: groundY,
-    width: 40,
-    height: 60,
+    width: 50,
+    height: 70,
     vy: 0,
-    gravity: 0.6,
-    jumpPower: -12,
+    gravity: 0.7,
+    jumpPower: -14,
     state: "idle"
 };
 
 let obstacles = [];
 
-const obstacleTypes = [
-    { type: "car", width: 80, height: 40, action: "jump" },
-    { type: "barrier", width: 60, height: 50, action: "jump" },
-    { type: "sign_low", width: 120, height: 40, action: "duck", yOffset: 60 }
-];
+/* ===== ROAD SCROLL ===== */
+
+let roadX1 = 0;
+let roadX2 = canvas.width;
+
+/* ===== INPUT ===== */
 
 document.addEventListener("keydown", e => {
     if (e.key === "ArrowUp" && player.state !== "jump") {
         player.vy = player.jumpPower;
         player.state = "jump";
     }
-    if (e.key === "ArrowDown") {
+
+    if (e.key === "ArrowDown" && player.state !== "jump") {
         player.state = "duck";
     }
 });
@@ -70,14 +79,45 @@ restartBtn.onclick = () => {
     gameRunning = true;
 };
 
+/* ===== SPAWN ===== */
+
 function spawnObstacle() {
-    const rand = obstacleTypes[Math.floor(Math.random() * obstacleTypes.length)];
-    obstacles.push({
-        ...rand,
-        x: canvas.width,
-        y: groundY - (rand.yOffset || 0)
-    });
+    const type = Math.random() > 0.5 ? "barrier" : "sign_low";
+
+    if (type === "barrier") {
+        obstacles.push({
+            type: "barrier",
+            width: 70,
+            height: 60,
+            x: canvas.width,
+            y: groundY
+        });
+    } else {
+        obstacles.push({
+            type: "sign_low",
+            width: 120,
+            height: 40,
+            x: canvas.width,
+            y: groundY - 80
+        });
+    }
 }
+
+/* ===== COLLISION ===== */
+
+function isColliding(p, o) {
+    let playerHeight = p.state === "duck" ? 40 : 70;
+    let playerTop = p.y - playerHeight;
+
+    return (
+        p.x < o.x + o.width &&
+        p.x + p.width > o.x &&
+        playerTop < o.y &&
+        p.y > o.y - o.height
+    );
+}
+
+/* ===== UPDATE LOOP ===== */
 
 function update() {
 
@@ -85,11 +125,19 @@ function update() {
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Road
-    ctx.fillStyle = "#222";
-    ctx.fillRect(0, groundY + 20, canvas.width, 10);
+    /* ---- Scroll Road ---- */
 
-    // Player physics
+    roadX1 -= speed;
+    roadX2 -= speed;
+
+    if (roadX1 <= -canvas.width) roadX1 = canvas.width;
+    if (roadX2 <= -canvas.width) roadX2 = canvas.width;
+
+    ctx.drawImage(assets.road1, roadX1, 0, canvas.width, canvas.height);
+    ctx.drawImage(assets.road2, roadX2, 0, canvas.width, canvas.height);
+
+    /* ---- Player Physics ---- */
+
     player.vy += player.gravity;
     player.y += player.vy;
 
@@ -99,29 +147,34 @@ function update() {
         if (player.state !== "duck") player.state = "idle";
     }
 
-    // Draw player sprite
-    let sprite = assets["ronnie_idle"];
-    if (player.state === "jump") sprite = assets["ronnie_jump"];
-    if (player.state === "duck") sprite = assets["ronnie_duck"];
+    /* ---- Draw Player ---- */
 
-    let drawHeight = player.state === "duck" ? 40 : 60;
+    let sprite = assets.idle;
+
+    if (player.state === "jump") sprite = assets.jump;
+    else if (player.state === "duck") sprite = assets.duck;
+    else if (player.state === "idle") sprite = assets.run;
+
+    let drawHeight = player.state === "duck" ? 40 : 70;
 
     ctx.drawImage(
         sprite,
         player.x,
         player.y - drawHeight,
-        40,
+        player.width,
         drawHeight
     );
 
-    // Spawn logic
+    /* ---- Spawn ---- */
+
     spawnTimer++;
-    if (spawnTimer > 100) {
+    if (spawnTimer > 110) {
         spawnObstacle();
         spawnTimer = 0;
     }
 
-    // Obstacles
+    /* ---- Obstacles ---- */
+
     for (let i = obstacles.length - 1; i >= 0; i--) {
         const o = obstacles[i];
         o.x -= speed;
@@ -134,13 +187,7 @@ function update() {
             o.height
         );
 
-        // Collision
-        if (
-            player.x < o.x + o.width &&
-            player.x + 40 > o.x &&
-            player.y - 60 < o.y &&
-            player.y > o.y - o.height
-        ) {
+        if (isColliding(player, o)) {
             gameRunning = false;
         }
 
@@ -149,8 +196,10 @@ function update() {
         }
     }
 
+    /* ---- Score ---- */
+
     score++;
-    if (score % 500 === 0) speed += 0.5;
+    if (score % 600 === 0) speed += 0.5;
 
     scoreEl.textContent = "Score: " + score;
     speedEl.textContent = "Speed: " + speed.toFixed(1);
