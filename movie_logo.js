@@ -1,148 +1,134 @@
 const startBtn = document.getElementById('startBtn');
 const box = document.getElementById('animationBox');
 
-let squares = [];
-let animationId = null;
+let animationId;
 let running = false;
-let converged = false;
 
 const pixelSize = 4;
-const totalSquares = 1000;
+const totalPixels = 1000;
+const TOTAL_TIME = 5000; // EXACT 5 seconds
 
-// 20 shades: red → orange → black/gray
 const colors = [];
-for (let i=0;i<5;i++) colors.push(`rgb(${200+i*10},0,0)`);           // reds
-for (let i=0;i<5;i++) colors.push(`rgb(255,${50+i*10},0)`);          // oranges
-for (let i=0;i<5;i++) colors.push(`rgb(${50+i*20},${50+i*20},${50+i*20})`); // grays
-for (let i=0;i<5;i++) colors.push(`rgb(0,0,0)`);                     // black
+for (let i = 0; i < 5; i++) colors.push(`rgb(${180+i*15},0,0)`);
+for (let i = 0; i < 5; i++) colors.push(`rgb(255,${60+i*15},0)`);
+for (let i = 0; i < 5; i++) colors.push(`rgb(${50+i*20},${50+i*20},${50+i*20})`);
+for (let i = 0; i < 5; i++) colors.push(`rgb(0,0,0)`);
 
-startBtn.addEventListener('click', () => {
+startBtn.onclick = () => {
     if (!running) {
-        startBtn.textContent = "Stop Animation";
         running = true;
+        startBtn.textContent = "Stop Animation";
         startAnimation();
     } else {
-        running = false;
         stopAnimation();
     }
-});
+};
 
-function createSquares(targets){
-    const boxWidth = box.clientWidth;
-    const boxHeight = box.clientHeight;
+function startAnimation() {
 
-    box.innerHTML = '';
-    squares = [];
+    box.innerHTML = "";
 
-    for(let i=0;i<totalSquares;i++){
-        const square = document.createElement('div');
-        square.style.width = pixelSize+'px';
-        square.style.height = pixelSize+'px';
-        square.style.position='absolute';
-        square.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+    const boxW = box.clientWidth;
+    const boxH = box.clientHeight;
 
-        // start along walls
-        const side = Math.floor(Math.random()*4);
-        if(side===0){ square.x = 0; square.y = Math.random()*boxHeight; }
-        if(side===1){ square.x = boxWidth-pixelSize; square.y = Math.random()*boxHeight; }
-        if(side===2){ square.x = Math.random()*boxWidth; square.y = 0; }
-        if(side===3){ square.x = Math.random()*boxWidth; square.y = boxHeight-pixelSize; }
+    // Create canvas for PERFECT font sampling
+    const canvas = document.createElement("canvas");
+    canvas.width = 800;
+    canvas.height = 200;
+    const ctx = canvas.getContext("2d");
 
-        // initial velocity
-        square.vx = (Math.random()-0.5)*4;
-        square.vy = (Math.random()-0.5)*4;
+    ctx.fillStyle = "black";
+    ctx.font = "bold 160px GateKeeperAOE";
+    ctx.textBaseline = "middle";
+    ctx.textAlign = "center";
+    ctx.fillText("RONNIE", canvas.width/2, canvas.height/2);
 
-        square.target = targets[i % targets.length];
-        square.arrived = false;
+    const data = ctx.getImageData(0,0,canvas.width,canvas.height).data;
+    const points = [];
 
-        box.appendChild(square);
-        squares.push(square);
-    }
-}
-
-function startAnimation(){
-    // Hidden canvas to extract exact font pixels
-    const cols = 200, rows = 80;
-    const canvas = document.createElement('canvas');
-    canvas.width=cols; canvas.height=rows;
-    const ctx = canvas.getContext('2d');
-    ctx.fillStyle='black';
-    ctx.font='bold 60px GateKeeperAOE';
-    ctx.textBaseline='top';
-    ctx.fillText('RONNIE', 0,0);
-
-    const data = ctx.getImageData(0,0,cols,rows).data;
-    const targets = [];
-
-    for(let y=0;y<rows;y++){
-        for(let x=0;x<cols;x++){
-            const idx=(y*cols+x)*4;
-            if(data[idx+3]>128){ // opaque pixel
-                targets.push({x: x*4, y: y*4});
+    for (let y = 0; y < canvas.height; y += 2) {
+        for (let x = 0; x < canvas.width; x += 2) {
+            const i = (y * canvas.width + x) * 4;
+            if (data[i + 3] > 128) {
+                points.push({x, y});
             }
         }
     }
 
-    createSquares(targets);
+    // Shuffle points so distribution is even
+    for (let i = points.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [points[i], points[j]] = [points[j], points[i]];
+    }
+
+    const xOffset = (boxW - canvas.width) / 2;
+    const yOffset = (boxH - canvas.height) / 2;
+
+    const pixels = [];
+
+    for (let i = 0; i < totalPixels; i++) {
+
+        const div = document.createElement("div");
+        div.style.position = "absolute";
+        div.style.width = pixelSize + "px";
+        div.style.height = pixelSize + "px";
+        div.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)];
+
+        // spawn from wall
+        const side = Math.floor(Math.random()*4);
+        let sx, sy;
+
+        if (side === 0) { sx = 0; sy = Math.random()*boxH; }
+        if (side === 1) { sx = boxW; sy = Math.random()*boxH; }
+        if (side === 2) { sx = Math.random()*boxW; sy = 0; }
+        if (side === 3) { sx = Math.random()*boxW; sy = boxH; }
+
+        const target = points[i % points.length];
+
+        const tx = target.x + xOffset;
+        const ty = target.y + yOffset;
+
+        div.startX = sx;
+        div.startY = sy;
+        div.targetX = tx;
+        div.targetY = ty;
+
+        div.style.left = sx + "px";
+        div.style.top = sy + "px";
+
+        box.appendChild(div);
+        pixels.push(div);
+    }
 
     const startTime = performance.now();
-    const duration = 5000; // 5 sec for convergence
 
-    function animate(){
-        const now = performance.now();
-        const elapsed = now-startTime;
-        const attraction = Math.min(elapsed/duration,1);
+    function animate(now) {
 
-        const boxWidth = box.clientWidth;
-        const boxHeight = box.clientHeight;
+        const elapsed = now - startTime;
+        const t = Math.min(elapsed / TOTAL_TIME, 1);
 
-        let allArrived = true;
+        // smooth cubic ease-out
+        const ease = 1 - Math.pow(1 - t, 3);
 
-        for(let sq of squares){
-            if(!sq.arrived){
-                allArrived=false;
+        pixels.forEach(p => {
+            const nx = p.startX + (p.targetX - p.startX) * ease;
+            const ny = p.startY + (p.targetY - p.startY) * ease;
 
-                // attraction to target
-                const dx = sq.target.x - sq.x;
-                const dy = sq.target.y - sq.y;
+            p.style.left = nx + "px";
+            p.style.top = ny + "px";
+        });
 
-                sq.vx += dx*0.03*attraction;
-                sq.vy += dy*0.03*attraction;
-
-                // move
-                sq.x += sq.vx;
-                sq.y += sq.vy;
-
-                // bounce inside box
-                if(sq.x < 0){ sq.x=0; sq.vx*=-1; }
-                if(sq.x > boxWidth-pixelSize){ sq.x=boxWidth-pixelSize; sq.vx*=-1; }
-                if(sq.y < 0){ sq.y=0; sq.vy*=-1; }
-                if(sq.y > boxHeight-pixelSize){ sq.y=boxHeight-pixelSize; sq.vy*=-1; }
-
-                // check if close enough to target
-                if(Math.abs(dx)<1 && Math.abs(dy)<1){
-                    sq.x = sq.target.x;
-                    sq.y = sq.target.y;
-                    sq.arrived=true;
-                    sq.vx=0;
-                    sq.vy=0;
-                }
-
-                sq.style.left = sq.x+'px';
-                sq.style.top = sq.y+'px';
-            }
+        if (t < 1 && running) {
+            animationId = requestAnimationFrame(animate);
         }
-
-        if(running && !allArrived) animationId=requestAnimationFrame(animate);
     }
 
-    animate();
+    animationId = requestAnimationFrame(animate);
 }
 
-function stopAnimation(){
+function stopAnimation() {
+    running = false;
     cancelAnimationFrame(animationId);
-    animationId=null;
-    box.innerHTML='';
-    startBtn.textContent='Start Animation';
-    running=false;
+    box.innerHTML = "";
+    startBtn.textContent = "Start Animation";
 }
