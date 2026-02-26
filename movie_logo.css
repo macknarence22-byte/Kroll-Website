@@ -17,10 +17,7 @@ body {
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.navbar h1 {
-    font-size: 22px;
-    font-weight: 700;
-}
+.navbar h1 { font-size: 22px; font-weight: 700; }
 
 .nav-links a {
     color: white;
@@ -30,9 +27,7 @@ body {
     transition: opacity 0.2s ease;
 }
 
-.nav-links a:hover {
-    opacity: 0.7;
-}
+.nav-links a:hover { opacity: 0.7; }
 
 .hero-movie {
     text-align: center;
@@ -51,14 +46,11 @@ body {
     transition: transform 0.2s;
 }
 
-#startBtn:hover {
-    transform: scale(1.05);
-}
+#startBtn:hover { transform: scale(1.05); }
 
-/* Rectangle box for animation */
 #animationBox {
     margin: 40px auto 0 auto;
-    width: 600px;
+    width: 700px;
     height: 300px;
     border: 2px solid #0b3d91;
     position: relative;
