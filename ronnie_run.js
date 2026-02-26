@@ -27,7 +27,7 @@ loadImage("car", "assets/car_obstical.png");
 loadImage("barrier", "assets/barrier_obstical.png");
 loadImage("sign_low", "assets/sign_low_obstical.png");
 loadImage("Roud1", "assets/Road1.png");
-loadImage("Road2", "assets\Road2.png");
+loadImage("Road2", "assets/Road2.png");
 const player = {
     x: 100,
     y: groundY,
