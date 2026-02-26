@@ -20,12 +20,12 @@ function loadImage(name, src) {
     assets[name] = img;
 }
 
-loadImage("ronnie_idle", "assets/ronnie_idle.png");
-loadImage("ronnie_jump", "assets/ronnie_jump.png");
-loadImage("ronnie_duck", "assets/ronnie_duck.png");
-loadImage("car", "assets/car.png");
-loadImage("barrier", "assets/barrier.png");
-loadImage("sign_low", "assets/sign_low.png");
+loadImage("ronnie_idle", "assets/charatcter_idle.png");
+loadImage("ronnie_jump", "assets/character_jump.png");
+loadImage("ronnie_duck", "assets/character_duck.png");
+loadImage("car", "assets/car_obstical.png");
+loadImage("barrier", "assets/barrier_obstical.png");
+loadImage("sign_low", "assets/sign_low_obstical.png");
 
 const player = {
     x: 100,
