@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Movie Animation - KROLL</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="movie_logo.css">
+<meta charset="UTF-8">
+<title>Movie Animation - KROLL</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="movie_logo.css">
+
+<!-- Load Gate Keeper AOE font -->
+<style>
+@font-face {
+    font-family: 'GateKeeperAOE';
+    src: url('GateKeeperAOE.ttf') format('truetype');
+}
+</style>
 </head>
 <body>
 
@@ -20,9 +28,8 @@
 
 <div class="hero-movie">
     <h2>Movie Animation</h2>
-    <p>Click the button below to start the Logo creation.</p>
-    <button id="startBtn">Start Logo|Creation</button>
-
+    <p>Click the button below to start/stop the animation.</p>
+    <button id="startBtn">Start Animation</button>
     <div id="animationBox"></div>
 </div>
 
