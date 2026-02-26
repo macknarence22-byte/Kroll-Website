@@ -1,0 +1,156 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kroll Developments</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background-color: #f4f7fb;
+            color: #1a1a1a;
+        }
+        .navbar {
+            background-color: #0b3d91;
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .navbar h1 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+        .hero {
+            background: linear-gradient(to right, #0b3d91, #1e5ed8);
+            color: white;
+            padding: 120px 20px;
+            text-align: center;
+        }
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .about-section {
+            padding: 100px 10%;
+            display: flex;
+            gap: 60px;
+            align-items: flex-start;
+        }
+        .about-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            width: 320px;
+            flex-shrink: 0;
+        }
+        .about-card img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .about-text {
+            flex: 1;
+        }
+        .about-text h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #0b3d91;
+        }
+        .about-text p {
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        footer {
+            background-color: #0b3d91;
+            color: white;
+            text-align: center;
+            padding: 25px 10px;
+            margin-top: 80px;
+        }
+        @media (max-width: 900px) {
+            .about-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            .about-card {
+                width: 100%;
+                max-width: 400px;
+            }
+            .about-text {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Kroll Developments</h1>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="movie_logo.html">Logo</a>
+            <a href="projects.html">Projects</a>
+            <a href="ronnie_run.html">Games</a>
+            <a href="math.html">Algibra</a>
+            <a href="about.html">About Me</a>
+            <a href="admin.html">Admin Sign in</a>
+        </div>
+    </div>
+    <section class="hero">
+        <h2>About Me</h2>
+        <p>
+            I am a Developer that is working on learning Lua and Html whilte I already know how to code in JavaScript. I have worked on 3 FiveM servers and over 12 
+            Different types of bots for all sorts of platforms
+        </p>
+    </section>
+    <section class="about-section">
+        <div class="about-card">
+            <img src="Ronnie.png" alt="Profile Image">
+        </div>
+        <div class="about-text">
+            <h3>About Me</h3>
+            <p>
+                Ronnie<br><br>
+                Currently working on a Xbox/FiveM GTA 5 Server Bots, but I am also working on another FiveM Server San Andreas State.
+                Although I am also working on different Projects daily including A Cowboys Frontier a Red Dead Redemption 2 Sevrer
+             <br><br>
+            </p>
+        </div>
+
+    </section>
+
+    <footer>
+       Working on more projects soon!
+    </footer>
+</body>
+</html>
