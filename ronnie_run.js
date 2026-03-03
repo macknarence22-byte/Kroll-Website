@@ -6,7 +6,7 @@ const restartBtn = document.getElementById("restartBtn");
 let gameRunning = true;
 const groundY = 350;
 let score = 0;
-let speed = 40;
+let speed = 411;
 let spawnTimer = 0;
 const assets = {};
 function loadImage(name, src) {
@@ -37,13 +37,10 @@ const player = {
 
 let obstacles = [];
 
-/* ===== ROAD SCROLL ===== */
-
+// Road Scale
 let roadX1 = 0;
 let roadX2 = canvas.width;
-
-/* ===== INPUT ===== */
-
+// Input
 document.addEventListener("keydown", e => {
     if (e.key === "ArrowUp" && player.state !== "jump") {
         player.vy = player.jumpPower;
@@ -64,12 +61,10 @@ document.addEventListener("keyup", e => {
 restartBtn.onclick = () => {
     obstacles = [];
     score = 0;
-    speed = 4;
+    speed = 41;
     gameRunning = true;
 };
-
-/* ===== SPAWN ===== */
-
+//spawning the character, and obsticals
 function spawnObstacle() {
     const type = Math.random() > 0.5 ? "barrier" : "sign_low";
 
