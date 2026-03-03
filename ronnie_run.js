@@ -1,40 +1,29 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
-
 const scoreEl = document.getElementById("score");
 const speedEl = document.getElementById("speed");
 const restartBtn = document.getElementById("restartBtn");
-
 let gameRunning = true;
-
 const groundY = 350;
 let score = 0;
-let speed = 4;
+let speed = 40;
 let spawnTimer = 0;
-
 const assets = {};
-
 function loadImage(name, src) {
     const img = new Image();
     img.src = src;
     assets[name] = img;
 }
-
-/* ===== LOAD CORRECT FILES ===== */
-
+// images loading
 loadImage("road1", "assets/Road1.png");
 loadImage("road2", "assets/Road2.png");
-
 loadImage("barrier", "assets/barrier_obstical.png");
 loadImage("sign_low", "assets/sign_low_obstical.png");
-
 loadImage("run", "assets/character.png");
 loadImage("idle", "assets/character_idle.png");
 loadImage("jump", "assets/character_jump.png");
 loadImage("duck", "assets/character_duck.png");
-
-/* ===== PLAYER ===== */
-
+// player
 const player = {
     x: 120,
     y: groundY,
