@@ -61,7 +61,7 @@ document.addEventListener("keyup", e => {
 restartBtn.onclick = () => {
     obstacles = [];
     score = 0;
-    speed = 41;
+    speed = 1000000;
     gameRunning = true;
 };
 //spawning the character, and obsticals
