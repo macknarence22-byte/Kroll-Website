@@ -6,7 +6,7 @@ const restartBtn = document.getElementById("restartBtn");
 let gameRunning = true;
 const groundY = 350;
 let score = 0;
-let speed = 411;
+let speed = 40;
 let spawnTimer = 0;
 const assets = {};
 function loadImage(name, src) {
