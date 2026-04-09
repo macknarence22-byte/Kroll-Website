@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Discord Mail System - Kroll Developments</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background-color: #f4f7fb;
+            color: #1a1a1a;
+        }
+        .navbar {
+            background-color: #0b3d91;
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .navbar h1 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+        .product-hero {
+            background: linear-gradient(to right, #0b3d91, #1e5ed8);
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+        .product-hero h2 {
+            font-size: 38px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .product-hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        .product-content {
+            padding: 80px 10%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .product-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border-left: 4px solid #0b3d91;
+        }
+        .feature-card h3 {
+            font-size: 22px;
+            color: #0b3d91;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        .feature-card p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #666;
+        }
+        .demo-section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            text-align: center;
+            margin: 60px 0;
+        }
+        .demo-section h3 {
+            font-size: 26px;
+            color: #0b3d91;
+            margin-bottom: 20px;
+        }
+        footer {
+            background-color: #0b3d91;
+            color: white;
+            text-align: center;
+            padding: 25px 10px;
+            margin-top: 80px;
+        }
+        @media (max-width: 768px) {
+            .product-hero h2 {
+                font-size: 28px;
+            }
+            .product-content {
+                padding: 40px 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Kroll Developments</h1>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="developments.html">Our Developments</a>
+            <a href="about.html">About Kroll</a>
+        </div>
+    </div>
+
+    <section class="product-hero">
+        <h2>Discord Mail System</h2>
+        <p>
+            A complete email-style messaging system for Discord servers. 
+            Send, receive, and manage private messages through beautiful Discord embeds.
+        </p>
+    </section>
+
+    <div class="product-content">
+        <h3 style="font-size: 28px; color: #0b3d91; text-align: center; margin-bottom: 20px;">
+            Key Features
+        </h3>
+
+        <div class="product-features">
+            <div class="feature-card">
+                <h3>📧 Private Messaging</h3>
+                <p>Users can send private messages to each other that only they can see. Perfect for staff communications or private server business.</p>
+            </div>
+            <div class="feature-card">
+                <h3>✉️ Beautiful Embeds</h3>
+                <p>Fully customizable Discord embeds with timestamps, sender info, and rich formatting that looks professional.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📱 Mobile Friendly</h3>
+                <p>Works perfectly on desktop and mobile Discord clients with responsive design and intuitive commands.</p>
+            </div>
+            <div class="feature-card">
+                <h3>⚙️ Easy Setup</h3>
+                <p>Simple installation with full documentation. Works with any Discord bot framework including discord.js.</p>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>Live Demo</h3>
+            <p style="font-size: 16px; color: #666; margin-bottom: 30px;">
+                Try the Discord Mail System live in your server or <strong>contact us for a custom demo</strong>.
+            </p>
+            <a href="mailto:contact@krolldevelopments.com" style="
+                background: #0b3d91;
+                color: white;
+                padding: 15px 40px;
+                text-decoration: none;
+                border-radius: 8px;
+                font-weight: 600;
+                font-size: 16px;
+                display: inline-block;
+                transition: background 0.2s ease;
+            " onmouseover="this.style.background='#1e5ed8'" onmouseout="this.style.background='#0b3d91'">
+                Get Quote
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        Kroll Developments © 2026 | Est. 2025
+    </footer>
+</body>
+</html>
