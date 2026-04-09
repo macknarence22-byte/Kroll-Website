@@ -23,3 +23,30 @@ body {
 </body>
       <h3>Test</h3>
 </html>
+<script>
+  const form = document.getElementById("loginForm");
+  const usernameInput = document.querySelector('input[name="username"]');
+  const passwordInput = document.querySelector('input[name="password"]');
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    try {
+      const response = await fetch("data/logins/info.json");
+      const data = await response.json();
+
+      if (username === data.username && password === data.password) {
+        sessionStorage.setItem("loggedIn", "true");
+        window.location.href = "index.html";
+      } else {
+        alert("Wrong username or password.");
+      }
+    } catch (error) {
+      alert("Could not load login data.");
+      console.error(error);
+    }
+  });
+</script>
