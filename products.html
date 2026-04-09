@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Projects - Kroll Developments</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+        body {
+            background-color: #f4f7fb;
+            color: #1a1a1a;
+        }
+        .navbar {
+            background-color: #0b3d91;
+            color: white;
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .navbar h1 {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+        /* Products Modal */
+        .products-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            overflow: auto;
+        }
+        .modal-content {
+            background: #f4f7fb;
+            margin: 5% auto;
+            padding: 40px;
+            max-width: 1400px;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #0b3d91;
+        }
+        .modal-header h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #0b3d91;
+        }
+        .close-modal {
+            background: none;
+            border: 2px solid #0b3d91;
+            color: #0b3d91;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .close-modal:hover {
+            background: #0b3d91;
+            color: white;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        .product-card img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .product-card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+        }
+        .product-card p {
+            font-size: 14px;
+            color: #666;
+        }
+        @media (max-width: 1400px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        @media (max-width: 1000px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 700px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal-content {
+                margin: 10px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Kroll Developments</h1>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="developments.html">Our Developments</a>
+            <a href="about.html">About Kroll</a>
+        </div>
+    </div>
+
+    <div class="products-modal" id="productsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Our Projects</h2>
+                <button class="close-modal" onclick="closeProducts()">Close</button>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample products data - replace with your products.json later
+        const products = [
+            { name: "Project 1", image: "assets/project1.png", link: "products/project1.html" },
+            { name: "Project 2", image: "assets/project2.png" },
+            { name: "Project 3", link: "products/project3.html" },
+            { name: "Project 4", image: "assets/project4.png" }
+        ];
+
+        function showProducts() {
+            document.getElementById('productsModal').style.display = 'block';
+            loadProducts();
+        }
+
+        function closeProducts() {
+            document.getElementById('productsModal').style.display = 'none';
+        }
+
+        function loadProducts() {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                
+                if (product.image) {
+                    card.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'">
+                        <h3>${product.name}</h3>
+                        <p>View Image</p>
+                    `;
+                } else if (product.link) {
+                    card.innerHTML = `
+                        <h3>${product.name}</h3>
+                        <p>Click to View Details</p>
+                    `;
+                    card.onclick = () => window.open(product.link, '_blank');
+                } else {
+                    card.innerHTML = `
+                        <h3>${product.name}</h3>
+                        <p>Coming Soon</p>
+                    `;
+                }
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('productsModal');
+            if (event.target === modal) {
+                closeProducts();
+            }
+        }
+    </script>
+</body>
+</html>
