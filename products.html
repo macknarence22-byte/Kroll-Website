@@ -43,9 +43,8 @@
         .nav-links a:hover {
             opacity: 0.7;
         }
-        /* Products Modal */
         .products-modal {
-            display: none;
+            display: block;
             position: fixed;
             top: 0;
             left: 0;
@@ -165,7 +164,7 @@
             <a href="about.html">About Kroll</a>
         </div>
     </div>
-this line is active and will show in the html
+
     <div class="products-modal" id="productsModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -173,18 +172,18 @@ this line is active and will show in the html
                 <button class="close-modal" onclick="closeProducts()">Close</button>
             </div>
             <div class="products-grid" id="productsGrid">
-                <!-- Products will be loaded here -->
             </div>
         </div>
     </div>
 
     <script>
-        // Sample products data - replace with your products.json later
         const products = [
-            { name: "Ticket System", image: "assets/product1.png", link: "products/product1.html" },
-            { name: "Character System", image: "assets/product1.png", link: "products/product1.html" },
-            { name: "Mail System", image: "products/product1", link: "products/product1.html" },
-            { name: "Call System", image: "assets/product1.png", link: "products/product1.html" }
+            { name: "Ticket System", image: "assets/product1.png", link: "products/product1.html", price: "$149" },
+            { name: "Character System", image: "assets/product2.png", link: "products/product2.html", price: "$199" },
+            { name: "Mail System", image: "assets/product3.png", link: "products/product3.html", price: "$129" },
+            { name: "Call System", image: "assets/product4.png", link: "products/product4.html", price: "$179" }
+
+            // { name: "New Project", image: "assets/newproject.png", link: "products/newproject.html", price: "$159" }
         ];
 
         function showProducts() {
@@ -203,37 +202,41 @@ this line is active and will show in the html
             products.forEach(product => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
-                
+
                 if (product.image) {
                     card.innerHTML = `
                         <img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'">
                         <h3>${product.name}</h3>
-                        <p>View Image</p>
+                        <p>${product.price}</p>
                     `;
                 } else if (product.link) {
                     card.innerHTML = `
                         <h3>${product.name}</h3>
-                        <p>Click to View Details</p>
+                        <p>${product.price}</p>
                     `;
-                    card.onclick = () => window.open(product.link, '_blank');
                 } else {
                     card.innerHTML = `
                         <h3>${product.name}</h3>
                         <p>Coming Soon</p>
                     `;
                 }
-                
+
+                if (product.link) {
+                    card.onclick = () => window.open(product.link, '_blank');
+                }
+
                 grid.appendChild(card);
             });
         }
 
-        // Close modal when clicking outside
         window.onclick = function(event) {
             const modal = document.getElementById('productsModal');
             if (event.target === modal) {
                 closeProducts();
             }
         }
+
+        showProducts();
     </script>
 </body>
 </html>
