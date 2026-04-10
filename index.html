@@ -1,152 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Kroll Developments</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-        body {
-            background-color: #f4f7fb;
-            color: #1a1a1a;
-        }
-        .navbar {
-            background-color: #0b3d91;
-            color: white;
-            padding: 18px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .navbar h1 {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 25px;
-            font-weight: 500;
-            transition: opacity 0.2s ease;
-        }
-        .nav-links a:hover {
-            opacity: 0.7;
-        }
-        .hero {
-            background: linear-gradient(to right, #0b3d91, #1e5ed8);
-            color: white;
-            padding: 120px 20px;
-            text-align: center;
-        }
-        .hero h2 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        .hero p {
-            font-size: 18px;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        .about-section {
-            padding: 100px 10%;
-            display: flex;
-            gap: 60px;
-            align-items: flex-start;
-        }
-        .about-card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            width: 320px;
-            flex-shrink: 0;
-        }
-        .about-card img {
-            width: 100%;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        .about-text {
-            flex: 1;
-        }
-        .about-text h3 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: #0b3d91;
-        }
-        .about-text p {
-            font-size: 16px;
-            line-height: 1.7;
-        }
-        footer {
-            background-color: #0b3d91;
-            color: white;
-            text-align: center;
-            padding: 25px 10px;
-            margin-top: 80px;
-        }
-        @media (max-width: 900px) {
-            .about-section {
-                flex-direction: column;
-                align-items: center;
-            }
-            .about-card {
-                width: 100%;
-                max-width: 400px;
-            }
-            .about-text {
-                text-align: center;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Kroll Developments</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #000000;
+      color: #e0e0e0;
+    }
+
+    /* Main navbar – dark blue on black */
+    .navbar {
+      background-color: #0a1a30;
+      color: white;
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0, 120, 255, 0.3);
+      border-bottom: 1px solid rgba(0, 180, 255, 0.3);
+    }
+
+    .navbar h1 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #00bfff;
+      text-shadow: 0 0 8px rgba(0, 180, 255, 0.7);
+    }
+
+    .nav-links a {
+      color: #80d0ff;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 5px rgba(0, 180, 255, 0);
+    }
+
+    .nav-links a:hover {
+      color: #00eeff;
+      text-shadow: 0 0 8px rgba(0, 180, 255, 0.8);
+      transform: translateY(-1px);
+    }
+
+    /* Hero section – dark with blue glow */
+    .hero {
+      background: linear-gradient(to right, #000, #0b1e30);
+      color: #e0f4ff;
+      padding: 120px 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(0, 180, 255, 0.2);
+    }
+
+    .hero h2 {
+      font-size: 42px;
+      margin-bottom: 20px;
+      font-weight: 700;
+      color: #00bfff;
+      text-shadow: 0 0 10px rgba(0, 180, 255, 0.6);
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+      color: #c0e0ff;
+    }
+
+    /* About section – dark cards */
+    .about-section {
+      padding: 100px 10%;
+      display: flex;
+      gap: 60px;
+      align-items: flex-start;
+      background-color: #020614;
+    }
+
+    .about-card {
+      background: #081a30;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.3),
+        0 0 15px rgba(0, 180, 255, 0.3);
+      width: 320px;
+      flex-shrink: 0;
+      border: 1px solid rgba(0, 180, 255, 0.2);
+    }
+
+    .about-card img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(0, 180, 255, 0.3);
+      box-shadow: 0 0 10px rgba(0, 180, 255, 0.4);
+    }
+
+    .about-text {
+      flex: 1;
+      color: #d0e8ff;
+    }
+
+    .about-text h3 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      color: #00bfff;
+      text-shadow: 0 0 8px rgba(0, 180, 255, 0.5);
+    }
+
+    .about-text p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #b0d0ff;
+    }
+
+    /* Glowing blue button style (you can reuse this class) */
+    .btn {
+      display: inline-block;
+      background-color: transparent;
+      color: #80d0ff;
+      border: 1px solid rgba(0, 180, 255, 0.5);
+      padding: 10px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 6px rgba(0, 180, 255, 0.6);
+    }
+
+    .btn:hover {
+      background-color: rgba(0, 180, 255, 0.1);
+      color: #00eeff;
+      box-shadow: 0 0 15px rgba(0, 180, 255, 0.7);
+      transform: translateY(-1px);
+    }
+
+    /* Footer – dark blue */
+    footer {
+      background-color: #0a1a30;
+      color: #a0d0ff;
+      text-align: center;
+      padding: 25px 10px;
+      margin-top: 80px;
+      border-top: 1px solid rgba(0, 180, 255, 0.2);
+    }
+
+    footer a {
+      color: #00bfff;
+      text-shadow: 0 0 6px rgba(0, 180, 255, 0.5);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #00eeff;
+      text-shadow: 0 0 8px rgba(0, 180, 255, 0.8);
+    }
+
+    @media (max-width: 900px) {
+      .about-section {
+        flex-direction: column;
+        align-items: center;
+      }
+      .about-card {
+        width: 100%;
+        max-width: 400px;
+      }
+      .about-text {
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="navbar">
-        <h1>Kroll Developements</h1>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="products.html">Products</a>
-            <a href="developments.html">Our Developments</a>
-            <a href="about.html">About Kroll</a>
-        </div>
+  <div class="navbar">
+    <h1>Kroll Developments</h1>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="developments.html">Our Developments</a>
+      <a href="about.html">About Kroll</a>
     </div>
-    <section class="hero">
-        <h2>What Is Kroll Developments?</h2>
-        <p>
-            Kroll Developments is a business that focus's on coding custom, or requested Systems, and Websites In JavaScript, HTML, and Lua
-    </section>
-    <section class="about-section">
-        <div class="about-card">
-            <img src="Ronnie.png" alt="Profile Image">
-        </div>
-        <div class="about-text">
-            <h3>Kroll Developements Owner</h3>
-            <p>
-                Kroll Developments Owner<br><br>
-                I am the Owner of Kroll Developments, I started off coding JavaScript but have adapted to use Lua, 
-                HTML and multipule other Languages. <br><br>
-             <h3>My Experience</h3>
-                <p>I have worked on 3 FiveM servers and countless Bots for plenty different systems and functions</p>
-                <br><br>
-                Kroll Developements
-            </p>
-        </div>
-    </section>
-    <footer>
-       Kroll Developments © 2026 | Est. 2025
-    </footer>
+  </div>
+
+  <section class="hero">
+    <h2>What Is Kroll Developments?</h2>
+    <p>
+      Kroll Developments is a business that focuses on coding custom, or requested systems and websites in JavaScript, HTML, and Lua.
+    </p>
+  </section>
+
+  <section class="about-section">
+    <div class="about-card">
+      <img src="Ronnie.png" alt="Profile Image">
+    </div>
+    <div class="about-text">
+      <h3>Kroll Developments Owner</h3>
+      <p>
+        I am the Owner of Kroll Developments. I started off coding JavaScript but have adapted to use Lua, HTML, and multiple other languages.
+      </p>
+      <br>
+      <h3>My Experience</h3>
+      <p>
+        I have worked on 3 FiveM servers and countless bots for plenty of different systems and functions.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    Kroll Developments © 2026 | Est. 2025
+  </footer>
 </body>
 </html>
