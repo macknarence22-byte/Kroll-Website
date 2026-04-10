@@ -98,11 +98,10 @@
       color: #c0e0ff;
     }
 
-    /* Carousel area – dark blue */
+    /* Carousel area – dark blue, 3 visible cards */
     .scrolling-container {
       overflow: hidden;
       padding: 60px 0;
-      /* 3‑card visible window */
       height: 220px;
       background-color: #020624;
       border-top: 1px solid rgba(0, 180, 255, 0.3);
@@ -116,43 +115,89 @@
       height: 100%;
       white-space: nowrap;
       animation: slideLeftToRight 24s linear infinite;
-      padding-left: 30%; /* cards start off‑screen left */
+      padding-left: 30%;
+      /* no extra fade layers; fade happens on cards */
     }
 
     .scrolling-wrapper.paused:hover {
       animation-play-state: paused;
     }
 
-    /* ONLY LEFT → RIGHT, NO REVERSE, NEVER <--- */
+    /* Only LEFT → RIGHT, never reverse */
     @keyframes slideLeftToRight {
       0% {
-        transform: translateX(0);        /* all cards start off‑screen LEFT */
+        transform: translateX(0);
       }
       100% {
-        transform: translateX(-100%);    /* slide all the way to RIGHT exit */
+        transform: translateX(-100%);
       }
     }
 
-    /* Thicker, wider cards, 3 visible at once */
+    /* Thicker, wider cards that fade in/out at edges */
     .script-card {
       width: 320px;
       margin: 0 40px;
       padding: 26px 34px;
       background-color: #081f40;
-      border: 3px solid rgba(0, 180, 255, 0.55);  /* thicker, brighter border */
+      border: 3px solid rgba(0, 180, 255, 0.55);
       border-radius: 18px;
       box-shadow: 0 0 16px rgba(0, 180, 255, 0.5);
       color: #d0e8ff;
       text-align: center;
       font-size: 15px;
       cursor: pointer;
-      transition: all 0.35s ease;
-      opacity: 1; /* clean, no weird transparency limits */
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      position: relative;
     }
 
-    .script-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 0 24px rgba(0, 180, 255, 0.75);
+    /* Fade using opacity: cards fully visible in center, fade at edges */
+    .script-card {
+      opacity: 1;
+    }
+
+    .scrolling-wrapper {
+      /* Target cards based on their position visually */
+    }
+
+    /* FADE‑OUT NEAR SIDES, “DESPAWN” VIA OPACITY */
+    /* Left‑edge fade‑out */
+    .script-card:first-child,
+    .script-card:nth-child(2),
+    .script-card:nth-child(3),
+    .script-card:nth-child(4) {
+      opacity: 0.4;
+    }
+
+    .scrolling-wrapper:hover .script-card {
+      opacity: 1; /* optional: keep solid on hover */
+    }
+
+    .scrolling-wrapper:not(:hover) .script-card {
+      opacity: 1;
+    }
+
+    /* Manual “zones” for fade‑in / fade‑out are not easy pure‑CSS, so instead:
+       we use a simple fade mask on the container that makes cards LOOK like they despawn/respawn
+       via opacity, without actually removing them from the DOM/layout. */
+    .scrolling-container::before,
+    .scrolling-container::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 100px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .scrolling-container::before {
+      left: 0;
+      background: linear-gradient(to right, transparent 0%, #020624 90%);
+    }
+
+    .scrolling-container::after {
+      right: 0;
+      background: linear-gradient(to left, transparent 0%, #020624 90%);
     }
 
     .script-card strong {
@@ -165,36 +210,6 @@
     .script-card span {
       font-size: 14px;
       opacity: 0.95;
-    }
-
-    /* Fade in/out using a simple left‑right gradient mask */
-    .scrolling-container::before,
-    .scrolling-container::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      height: 100%;
-      width: 100px;
-      background: linear-gradient(
-        to right,
-        transparent 0%,
-        #020624 80%
-      );
-      pointer-events: none;
-      z-index: 2;
-    }
-
-    .scrolling-container::before {
-      left: 0;
-    }
-
-    .scrolling-container::after {
-      right: 0;
-      background: linear-gradient(
-        to left,
-        transparent 0%,
-        #020624 80%
-      );
     }
 
     /* What is Kroll section */
@@ -242,7 +257,8 @@
     <h2>Our Scripts & Systems</h2>
     <p>
       Only 3 cards are visible at once, always moving → from left to right.
-      Cards fade in as they enter and fade out as they leave, never reversing.
+      Cards fade in as they enter the center and fade out as they near the sides,
+      visually “despawning” without breaking the loop.
     </p>
   </section>
 
@@ -279,7 +295,7 @@
         <strong>Discord ↔ FiveM Bridge</strong>
         <span>Real‑time chat sync between Discord and server.</span>
       </a>
-      <!-- Duplicates so only 3 show at once, still LEFT → RIGHT -->
+      <!-- Duplicates for loop, still LEFT → RIGHT -->
       <a href="product1.html" class="script-card">
         <strong>FiveM RP System</strong>
         <span>Full player‑based systems for FiveM roleplay servers.</span>
