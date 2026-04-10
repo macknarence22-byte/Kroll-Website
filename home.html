@@ -19,7 +19,7 @@
       min-height: 100vh;
     }
 
-    /* Navbar – same as your index.html */
+    /* Navbar – same as before */
     .navbar {
       background-color: #0a1a30;
       color: white;
@@ -74,7 +74,7 @@
       transform: translateY(-1px);
     }
 
-    /* Hero – small text above the spinning cards */
+    /* Hero above the carousel */
     .hero {
       background: linear-gradient(to right, #000, #0b1e30);
       color: #e0f4ff;
@@ -98,13 +98,14 @@
       color: #c0e0ff;
     }
 
-    /* Smooth scrolling scripts in the middle */
+    /* Carousel area – a bit darker blue, not black */
     .scrolling-container {
       overflow: hidden;
-      padding: 40px 0;
-      background-color: #020614;
-      border-top: 1px solid rgba(0, 180, 255, 0.2);
-      border-bottom: 1px solid rgba(0, 180, 255, 0.2);
+      padding: 50px 0;
+      /* Deep navy blue instead of pure black */
+      background-color: #020624;
+      border-top: 1px solid rgba(0, 180, 255, 0.3);
+      border-bottom: 1px solid rgba(0, 180, 255, 0.3);
     }
 
     .scrolling-wrapper {
@@ -112,8 +113,7 @@
       align-items: center;
       white-space: nowrap;
       animation: horizontalScroll 30s linear infinite;
-      padding-left: 100%;
-      /* shift start so it feels like it’s entering from the right */
+      padding-left: 50%;
     }
 
     .scrolling-wrapper.paused:hover {
@@ -121,94 +121,67 @@
     }
 
     @keyframes horizontalScroll {
-      0% {
-        transform: translateX(-100%);
-      }
-      100% {
+      from {
         transform: translateX(0);
+      }
+      to {
+        transform: translateX(-100%);
       }
     }
 
+    /* Bigger cards */
     .script-card {
-      margin-right: 24px;
-      padding: 16px 24px;
-      background-color: #081a30;
+      margin-right: 30px;
+      margin-left: 30px;
+      padding: 20px 30px;
+      background-color: #081f40;
       border: 1px solid rgba(0, 180, 255, 0.4);
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 180, 255, 0.2);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 180, 255, 0.3);
       color: #d0e8ff;
-      min-width: 220px;
+      min-width: 300px;
+      max-width: 340px;
       text-align: center;
-      font-size: 14px;
+      font-size: 15px;
       cursor: pointer;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      transition: all 0.3s ease;
     }
 
     .script-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 15px rgba(0, 180, 255, 0.6);
+      transform: translateY(-4px);
+      box-shadow: 0 0 20px rgba(0, 180, 255, 0.7);
     }
 
     .script-card strong {
       display: block;
       color: #00bfff;
-      font-size: 16px;
-      margin-bottom: 4px;
+      font-size: 18px;
+      margin-bottom: 6px;
     }
 
-    /* This makes the last card fade out as it exits */
-    .fade-right {
-      position: relative;
-      background: linear-gradient(to right, transparent 80%, #020614 100%);
-      padding-right: 100px;
-      clip-path: inset(0 0 0 0);
+    .script-card span {
+      font-size: 14px;
+      opacity: 0.9;
     }
 
-    /* “What is Kroll” section below */
+    /* What is Kroll section (no owner image, darker blue‑tinted) */
     .about-section {
       padding: 100px 10%;
-      display: flex;
-      gap: 60px;
-      align-items: flex-start;
       background-color: #020614;
-    }
-
-    .about-card {
-      background: #081a30;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 
-        0 8px 25px rgba(0, 0, 0, 0.3),
-        0 0 15px rgba(0, 180, 255, 0.3);
-      width: 320px;
-      flex-shrink: 0;
-      border: 1px solid rgba(0, 180, 255, 0.2);
-    }
-
-    .about-card img {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(0, 180, 255, 0.3);
-      box-shadow: 0 0 10px rgba(0, 180, 255, 0.4);
-    }
-
-    .about-text {
-      flex: 1;
       color: #d0e8ff;
+      line-height: 1.7;
     }
 
-    .about-text h3 {
+    .about-section h3 {
       font-size: 28px;
       margin-bottom: 20px;
       color: #00bfff;
       text-shadow: 0 0 8px rgba(0, 180, 255, 0.5);
     }
 
-    .about-text p {
+    .about-section p {
       font-size: 16px;
-      line-height: 1.7;
-      color: #b0d0ff;
+      margin-bottom: 16px;
     }
 
     footer {
@@ -216,7 +189,7 @@
       color: #a0d0ff;
       text-align: center;
       padding: 25px 10px;
-      margin-top: 80px;
+      margin-top: 60px;
       border-top: 1px solid rgba(0, 180, 255, 0.2);
     }
   </style>
@@ -239,76 +212,81 @@
     </p>
   </section>
 
-  <!-- Smooth, auto‑scrolling clickable script cards -->
-  <div class="scrolling-container fade-right">
+  <!-- BIGGER, DARK‑BLUE carousel -->
+  <div class="scrolling-container">
     <div class="scrolling-wrapper paused">
       <!-- Script 1 -->
       <a href="product1.html" class="script-card">
         <strong>FiveM RP System</strong>
-        Full player‑based systems for FiveM roleplay servers.
+        <span>Full player‑based systems for FiveM roleplay servers.</span>
       </a>
       <!-- Script 2 -->
       <a href="product2.html" class="script-card">
         <strong>Discord Bot</strong>
-        Custom logging, roles, and moderation bot.
+        <span>Custom logging, roles, and moderation bot.</span>
       </a>
       <!-- Script 3 -->
       <a href="product3.html" class="script-card">
         <strong>Vehicle Shop System</strong>
-        Lua‑based FiveM shop with inventory and UI.
+        <span>Lua‑based FiveM shop with inventory and UI.</span>
       </a>
       <!-- Script 4 -->
       <a href="product4.html" class="script-card">
         <strong>Website Dashboard</strong>
-        Admin panel for game servers in JS + HTML.
+        <span>Admin panel for game servers in JS + HTML.</span>
       </a>
       <!-- Script 5 -->
       <a href="product5.html" class="script-card">
         <strong>Mini Games Pack</strong>
-        Collection of Lua mini‑games for FiveM.
+        <span>Collection of Lua mini‑games for FiveM.</span>
       </a>
       <!-- Script 6 -->
       <a href="product6.html" class="script-card">
         <strong>Discord ↔ FiveM Bridge</strong>
-        Real‑time chat sync between Discord and server.
+        <span>Real‑time chat sync between Discord and server.</span>
       </a>
-      <!-- Dupes for smooth infinite loop -->
+      <!-- Duplicates for seamless loop -->
       <a href="product1.html" class="script-card">
         <strong>FiveM RP System</strong>
-        Full player‑based systems for FiveM roleplay servers.
+        <span>Full player‑based systems for FiveM roleplay servers.</span>
       </a>
       <a href="product2.html" class="script-card">
         <strong>Discord Bot</strong>
-        Custom logging, roles, and moderation bot.
+        <span>Custom logging, roles, and moderation bot.</span>
       </a>
       <a href="product3.html" class="script-card">
         <strong>Vehicle Shop System</strong>
-        Lua‑based FiveM shop with inventory and UI.
+        <span>Lua‑based FiveM shop with inventory and UI.</span>
       </a>
       <a href="product4.html" class="script-card">
         <strong>Website Dashboard</strong>
-        Admin panel for game servers in JS + HTML.
+        <span>Admin panel for game servers in JS + HTML.</span>
+      </a>
+      <a href="product5.html" class="script-card">
+        <strong>Mini Games Pack</strong>
+        <span>Collection of Lua mini‑games for FiveM.</span>
+      </a>
+      <a href="product6.html" class="script-card">
+        <strong>Discord ↔ FiveM Bridge</strong>
+        <span>Real‑time chat sync between Discord and server.</span>
       </a>
     </div>
   </div>
 
-  <!-- What is Kroll Developments? (same as your index) -->
+  <!-- What is Kroll Developments? -->
   <section class="about-section">
-    <div class="about-card">
-      <img src="Ronnie.png" alt="Profile Image">
-    </div>
-    <div class="about-text">
-      <h3>What Is Kroll Developments?</h3>
-      <p>
-        Kroll Developments is a business that focuses on coding custom, or requested systems and websites in JavaScript, HTML, and Lua.
-      </p>
-      <br>
-      <h3>Owner & Experience</h3>
-      <p>
-        I am the owner of Kroll Developments. I started off coding JavaScript but have adapted to use Lua, HTML, and multiple other languages.
-        I have worked on 3 FiveM servers and countless bots for many different systems and functions.
-      </p>
-    </div>
+    <h3>What Is Kroll Developments?</h3>
+    <p>
+      Kroll Developments is a business that focuses on coding custom, or requested systems and websites in JavaScript, HTML, and Lua.
+    </p>
+    <br>
+    <p>
+      We build scripts and tools for game servers, bots, and web interfaces, helping communities and projects get exactly what they need with clean, maintainable code.
+    </p>
+    <br>
+    <p>
+      Whether you need a FiveM system, a Discord bot, or a custom web panel, Kroll Developments designs and develops solutions tailored to your idea.
+    </p>
   </section>
 
   <footer>
