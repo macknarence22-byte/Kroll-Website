@@ -33,12 +33,30 @@
       border-bottom: 1px solid rgba(0, 180, 255, 0.3);
     }
 
+    /* Navbar title bounce on hover */
     .navbar h1 {
       font-size: 22px;
       font-weight: 700;
       letter-spacing: 1px;
       color: #00bfff;
       text-shadow: 0 0 8px rgba(0, 180, 255, 0.7);
+      transition: transform 0.3s ease;
+    }
+
+    .navbar h1:hover {
+      animation: bounce 0.6s ease infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-6px);
+      }
+      60% {
+        transform: translateY(-3px);
+      }
     }
 
     .nav-links a {
