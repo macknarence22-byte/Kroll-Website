@@ -102,6 +102,8 @@
     .scrolling-container {
       overflow: hidden;
       padding: 60px 0;
+      /* 3‑card visible window */
+      height: 220px;
       background-color: #020624;
       border-top: 1px solid rgba(0, 180, 255, 0.3);
       border-bottom: 1px solid rgba(0, 180, 255, 0.3);
@@ -111,16 +113,17 @@
     .scrolling-wrapper {
       display: flex;
       align-items: center;
+      height: 100%;
       white-space: nowrap;
-      animation: slideLeftToRight 32s linear infinite;
-      padding-left: 30%; /* start shifted so cards enter from far left */
+      animation: slideLeftToRight 24s linear infinite;
+      padding-left: 30%; /* cards start off‑screen left */
     }
 
     .scrolling-wrapper.paused:hover {
       animation-play-state: paused;
     }
 
-    /* STRICT LEFT → RIGHT ANIMATION */
+    /* ONLY LEFT → RIGHT, NO REVERSE, NEVER <--- */
     @keyframes slideLeftToRight {
       0% {
         transform: translateX(0);        /* all cards start off‑screen LEFT */
@@ -130,28 +133,26 @@
       }
     }
 
-    /* Bigger rounded cards */
+    /* Thicker, wider cards, 3 visible at once */
     .script-card {
-      margin-right: 30px;
-      margin-left: 30px;
-      padding: 24px 32px;
+      width: 320px;
+      margin: 0 40px;
+      padding: 26px 34px;
       background-color: #081f40;
-      border: 1px solid rgba(0, 180, 255, 0.5);
-      border-radius: 20px;
-      box-shadow: 0 0 15px rgba(0, 180, 255, 0.4);
+      border: 3px solid rgba(0, 180, 255, 0.55);  /* thicker, brighter border */
+      border-radius: 18px;
+      box-shadow: 0 0 16px rgba(0, 180, 255, 0.5);
       color: #d0e8ff;
-      min-width: 320px;
-      max-width: 360px;
       text-align: center;
       font-size: 15px;
       cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      opacity: 0.75; /* at least 25% transparent */
+      transition: all 0.35s ease;
+      opacity: 1; /* clean, no weird transparency limits */
     }
 
     .script-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 0 22px rgba(0, 180, 255, 0.75);
+      box-shadow: 0 0 24px rgba(0, 180, 255, 0.75);
     }
 
     .script-card strong {
@@ -166,22 +167,34 @@
       opacity: 0.95;
     }
 
-    /* Fade cards near sides with a dark‑blue overlay */
-    .script-card::after {
+    /* Fade in/out using a simple left‑right gradient mask */
+    .scrolling-container::before,
+    .scrolling-container::after {
       content: "";
       position: absolute;
-      left: 0; top: 0; right: 0; bottom: 0;
+      top: 0;
+      height: 100%;
+      width: 100px;
       background: linear-gradient(
         to right,
-        rgba(2, 6, 36, 0.6) 0%,
-        rgba(2, 6, 36, 0.25) 30%,
-        rgba(2, 6, 36, 0.25) 70%,
-        rgba(2, 6, 36, 0.6) 100%
+        transparent 0%,
+        #020624 80%
       );
-      border-radius: 18px;
       pointer-events: none;
-      mix-blend-mode: multiply;
-      opacity: 1;
+      z-index: 2;
+    }
+
+    .scrolling-container::before {
+      left: 0;
+    }
+
+    .scrolling-container::after {
+      right: 0;
+      background: linear-gradient(
+        to left,
+        transparent 0%,
+        #020624 80%
+      );
     }
 
     /* What is Kroll section */
@@ -228,12 +241,12 @@
   <section class="hero">
     <h2>Our Scripts & Systems</h2>
     <p>
-      Scripts always come in from the LEFT → and scroll out on the RIGHT →
-      Pulling all the way through the screen, never reversing.
+      Only 3 cards are visible at once, always moving → from left to right.
+      Cards fade in as they enter and fade out as they leave, never reversing.
     </p>
   </section>
 
-  <!-- BIG, rounded, left‑to‑right only carousel -->
+  <!-- 3‑visible‑card carousel -->
   <div class="scrolling-container">
     <div class="scrolling-wrapper paused">
       <!-- Script 1 -->
@@ -266,7 +279,7 @@
         <strong>Discord ↔ FiveM Bridge</strong>
         <span>Real‑time chat sync between Discord and server.</span>
       </a>
-      <!-- Duplicates for perfect loop, still LEFT → RIGHT -->
+      <!-- Duplicates so only 3 show at once, still LEFT → RIGHT -->
       <a href="product1.html" class="script-card">
         <strong>FiveM RP System</strong>
         <span>Full player‑based systems for FiveM roleplay servers.</span>
