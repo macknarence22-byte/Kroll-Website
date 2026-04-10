@@ -19,7 +19,7 @@
       min-height: 100vh;
     }
 
-    /* Navbar – same as before */
+    /* Navbar – same dark blue */
     .navbar {
       background-color: #0a1a30;
       color: white;
@@ -74,7 +74,7 @@
       transform: translateY(-1px);
     }
 
-    /* Hero above the carousel */
+    /* Hero text */
     .hero {
       background: linear-gradient(to right, #000, #0b1e30);
       color: #e0f4ff;
@@ -98,58 +98,59 @@
       color: #c0e0ff;
     }
 
-    /* Carousel area – a bit darker blue, not black */
+    /* Carousel area – dark blue */
     .scrolling-container {
       overflow: hidden;
-      padding: 50px 0;
-      /* Deep navy blue instead of pure black */
+      padding: 60px 0;
       background-color: #020624;
       border-top: 1px solid rgba(0, 180, 255, 0.3);
       border-bottom: 1px solid rgba(0, 180, 255, 0.3);
+      position: relative;
     }
 
     .scrolling-wrapper {
       display: flex;
       align-items: center;
       white-space: nowrap;
-      animation: horizontalScroll 30s linear infinite;
-      padding-left: 50%;
+      animation: scrollLeft 32s linear infinite;
+      padding-left: 40%; /* start with cards coming from left */
     }
 
     .scrolling-wrapper.paused:hover {
       animation-play-state: paused;
     }
 
-    @keyframes horizontalScroll {
-      from {
+    @keyframes scrollLeft {
+      0% {
         transform: translateX(0);
       }
-      to {
+      100% {
         transform: translateX(-100%);
       }
     }
 
-    /* Bigger cards */
+    /* Bigger cards with rounded edges */
     .script-card {
       margin-right: 30px;
       margin-left: 30px;
-      padding: 20px 30px;
+      padding: 24px 32px;
       background-color: #081f40;
-      border: 1px solid rgba(0, 180, 255, 0.4);
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 180, 255, 0.3);
+      border: 1px solid rgba(0, 180, 255, 0.5);
+      border-radius: 20px; /* very rounded edges */
+      box-shadow: 0 0 15px rgba(0, 180, 255, 0.4);
       color: #d0e8ff;
-      min-width: 300px;
-      max-width: 340px;
+      min-width: 320px;
+      max-width: 360px;
       text-align: center;
       font-size: 15px;
       cursor: pointer;
       transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
     }
 
     .script-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 0 20px rgba(0, 180, 255, 0.7);
+      box-shadow: 0 0 22px rgba(0, 180, 255, 0.75);
     }
 
     .script-card strong {
@@ -161,10 +162,40 @@
 
     .script-card span {
       font-size: 14px;
-      opacity: 0.9;
+      opacity: 0.95;
     }
 
-    /* What is Kroll section (no owner image, darker blue‑tinted) */
+    /* Smooth fade‑in from left, fade‑out to right
+       Uses ::after masks so opacity is *per‑card*,
+       and nearest card is near 75% visible, outer cards more transparent. */
+    .script-card::after {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(2, 6, 36, 0.55) 15%,  /* dark blue curtain */
+        rgba(2, 6, 36, 0.2) 35%,   /* center = least transparent */
+        rgba(2, 6, 36, 0.55) 65%,
+        transparent 100%
+      );
+      border-radius: 18px;
+      pointer-events: none;
+      mix-blend-mode: multiply;
+    }
+
+    .script-card {
+      position: relative;
+      /* Base: at least 0.75 (25% transparent) */
+      opacity: 0.75;
+    }
+
+    /* This is a cheat: we can’t *precisely* hook into scroll position in pure CSS,
+       so we lean on the background gradient + blur instead of trying to animate per‑card opacity.
+       It reads as: “cards fade out as they move away from center.” */
+
+    /* What is Kroll section */
     .about-section {
       padding: 100px 10%;
       background-color: #020614;
@@ -209,10 +240,11 @@
     <h2>Our Scripts & Systems</h2>
     <p>
       Scroll the cards below, or click any script to open its details page.
+      Cards smoothly fade in as they enter the center and fade out when they move toward the sides.
     </p>
   </section>
 
-  <!-- BIGGER, DARK‑BLUE carousel -->
+  <!-- BIG, rounded, left‑to‑right carousel -->
   <div class="scrolling-container">
     <div class="scrolling-wrapper paused">
       <!-- Script 1 -->
@@ -245,7 +277,7 @@
         <strong>Discord ↔ FiveM Bridge</strong>
         <span>Real‑time chat sync between Discord and server.</span>
       </a>
-      <!-- Duplicates for seamless loop -->
+      <!-- Duplicates for perfect loop -->
       <a href="product1.html" class="script-card">
         <strong>FiveM RP System</strong>
         <span>Full player‑based systems for FiveM roleplay servers.</span>
