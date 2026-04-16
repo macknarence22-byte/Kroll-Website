@@ -1,242 +1,548 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Projects - Kroll Developments</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
-        body {
-            background-color: #f4f7fb;
-            color: #1a1a1a;
-        }
-        .navbar {
-            background-color: #0b3d91;
-            color: white;
-            padding: 18px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .navbar h1 {
-            font-size: 22px;
-            font-weight: 700;
-            letter-spacing: 1px;
-        }
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 25px;
-            font-weight: 500;
-            transition: opacity 0.2s ease;
-        }
-        .nav-links a:hover {
-            opacity: 0.7;
-        }
-        .products-modal {
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            z-index: 2000;
-            overflow: auto;
-        }
-        .modal-content {
-            background: #f4f7fb;
-            margin: 5% auto;
-            padding: 40px;
-            max-width: 1400px;
-            max-height: 90vh;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            position: relative;
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #0b3d91;
-        }
-        .modal-header h2 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #0b3d91;
-        }
-        .close-modal {
-            background: none;
-            border: 2px solid #0b3d91;
-            color: #0b3d91;
-            padding: 10px 16px;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .close-modal:hover {
-            background: #0b3d91;
-            color: white;
-        }
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-            max-height: 60vh;
-            overflow-y: auto;
-        }
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            cursor: pointer;
-            height: 200px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-        }
-        .product-card img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 12px;
-        }
-        .product-card h3 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1a1a1a;
-            margin-bottom: 8px;
-        }
-        .product-card p {
-            font-size: 14px;
-            color: #666;
-        }
-        @media (max-width: 1400px) {
-            .products-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        @media (max-width: 1000px) {
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 700px) {
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-            .modal-content {
-                margin: 10px;
-                padding: 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Projects - Kroll Developments</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0; padding: 0; box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background-color: #000;
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+
+    /* ── Navbar ── */
+    .navbar {
+      background-color: #0a1a30;
+      color: white;
+      padding: 18px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,120,255,0.3);
+      border-bottom: 1px solid rgba(0,180,255,0.3);
+    }
+
+    .navbar h1 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #00bfff;
+      text-shadow: 0 0 8px rgba(0,180,255,0.7);
+      cursor: default;
+    }
+
+    .navbar h1:hover { animation: bounce 0.6s ease infinite; }
+
+    @keyframes bounce {
+      0%,20%,50%,80%,100% { transform: translateY(0); }
+      40% { transform: translateY(-4px); }
+      60% { transform: translateY(-3px); }
+    }
+
+    .nav-links a {
+      color: #80d0ff;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: #00eeff;
+      text-shadow: 0 0 8px rgba(0,180,255,0.8);
+    }
+
+    /* ── Page hero ── */
+    .page-hero {
+      background: linear-gradient(to right, #000, #0b1e30);
+      padding: 70px 20px 50px;
+      text-align: center;
+      border-bottom: 1px solid rgba(0,180,255,0.2);
+    }
+
+    .page-hero h2 {
+      font-size: 38px;
+      font-weight: 700;
+      color: #00bfff;
+      text-shadow: 0 0 10px rgba(0,180,255,0.6);
+      margin-bottom: 14px;
+    }
+
+    .page-hero p {
+      font-size: 17px;
+      color: #c0e0ff;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── Products section ── */
+    .products-section {
+      padding: 60px 5%;
+      background-color: #020614;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    /* ── Product card ── */
+    .product-card {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 22px 18px;
+      border: 1px solid rgba(0,180,255,0.2);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 15px rgba(0,180,255,0.1);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      text-align: center;
+    }
+
+    .product-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px rgba(0,180,255,0.35);
+      border-color: rgba(0,180,255,0.55);
+    }
+
+    .product-card:active { transform: translateY(-2px); }
+
+    /* Background image — faded */
+    .card-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.18;
+      filter: blur(2px) saturate(0.6);
+      transition: opacity 0.3s ease;
+      z-index: 0;
+    }
+
+    .product-card:hover .card-bg {
+      opacity: 0.26;
+    }
+
+    /* Dark gradient overlay so text is readable */
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(4,10,22,0.35) 0%,
+        rgba(4,10,22,0.72) 55%,
+        rgba(4,10,22,0.95) 100%
+      );
+      z-index: 1;
+    }
+
+    /* Main product image — centered upper area */
+    .card-main-img {
+      position: absolute;
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 76px;
+      height: 76px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(0,180,255,0.4);
+      box-shadow: 0 0 16px rgba(0,180,255,0.35);
+      z-index: 2;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .product-card:hover .card-main-img {
+      transform: translateX(-50%) scale(1.07);
+      box-shadow: 0 0 24px rgba(0,180,255,0.55);
+    }
+
+    /* Text content */
+    .card-content {
+      position: relative;
+      z-index: 2;
+      margin-top: 90px; /* clear the image */
+    }
+
+    .card-content h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #00bfff;
+      text-shadow: 0 0 6px rgba(0,180,255,0.5);
+      margin-bottom: 6px;
+    }
+
+    .card-content .price {
+      font-size: 15px;
+      font-weight: 600;
+      color: #80d0ff;
+    }
+
+    /* ── Product detail modal ── */
+    .product-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      z-index: 2000;
+      backdrop-filter: blur(5px);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product-modal-overlay.open {
+      display: flex;
+    }
+
+    .product-modal {
+      background: #081a30;
+      border: 1px solid rgba(0,180,255,0.35);
+      border-radius: 16px;
+      max-width: 520px;
+      width: 92%;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 40px rgba(0,180,255,0.2);
+      position: relative;
+      animation: modalIn 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.92) translateY(22px); }
+      to   { opacity: 1; transform: scale(1)    translateY(0);    }
+    }
+
+    /* Modal banner — background image, full-width top */
+    .modal-banner {
+      position: relative;
+      width: 100%;
+      height: 170px;
+      overflow: hidden;
+    }
+
+    .modal-banner-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.35;
+      filter: blur(1px) saturate(0.7);
+    }
+
+    .modal-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(4,14,30,0.4), rgba(8,26,48,0.92));
+    }
+
+    .modal-banner-img {
+      position: absolute;
+      bottom: -28px;
+      left: 36px;
+      width: 88px;
+      height: 88px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 2px solid rgba(0,180,255,0.5);
+      box-shadow: 0 0 20px rgba(0,180,255,0.45);
+      z-index: 2;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: rgba(0,0,0,0.45);
+      border: 1px solid rgba(0,180,255,0.4);
+      color: #80d0ff;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close:hover {
+      background: rgba(0,180,255,0.18);
+      color: #00eeff;
+      box-shadow: 0 0 10px rgba(0,180,255,0.4);
+    }
+
+    /* Modal body */
+    .modal-body {
+      padding: 44px 32px 28px; /* top padding clears the floating image */
+    }
+
+    .modal-body h3 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #00bfff;
+      text-shadow: 0 0 8px rgba(0,180,255,0.5);
+      margin-bottom: 6px;
+    }
+
+    .modal-body .modal-price {
+      font-size: 18px;
+      font-weight: 600;
+      color: #80d0ff;
+      margin-bottom: 16px;
+    }
+
+    .modal-body .modal-desc {
+      font-size: 15px;
+      color: #b0d0ff;
+      line-height: 1.75;
+      margin-bottom: 28px;
+    }
+
+    /* Modal footer row */
+    .modal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid rgba(0,180,255,0.15);
+      padding-top: 20px;
+    }
+
+    .btn-checkout {
+      background: rgba(0,180,255,0.14);
+      color: #00eeff;
+      border: 1px solid rgba(0,180,255,0.55);
+      padding: 12px 26px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-shadow: 0 0 6px rgba(0,180,255,0.6);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-checkout:hover {
+      background: rgba(0,180,255,0.26);
+      box-shadow: 0 0 20px rgba(0,180,255,0.5);
+    }
+
+    .btn-close-modal {
+      background: transparent;
+      color: #80d0ff;
+      border: 1px solid rgba(0,180,255,0.25);
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .btn-close-modal:hover {
+      border-color: rgba(0,180,255,0.5);
+      color: #00eeff;
+      background: rgba(255,255,255,0.04);
+    }
+
+    /* ── Footer ── */
+    footer {
+      background-color: #0a1a30;
+      color: #a0d0ff;
+      text-align: center;
+      padding: 25px 10px;
+      margin-top: 60px;
+      border-top: 1px solid rgba(0,180,255,0.2);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 1100px) { .products-grid { grid-template-columns: repeat(3,1fr); } }
+    @media (max-width: 780px)  { .products-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 500px)  {
+      .products-grid { grid-template-columns: 1fr; }
+      .navbar { padding: 14px 20px; }
+      .page-hero h2 { font-size: 28px; }
+      .nav-links a { margin-left: 12px; font-size: 13px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="navbar">
-        <h1>Kroll Developments</h1>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="developments.html">Our Developments</a>
-            <a href="about.html">About Kroll</a>
-        </div>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>Kroll Developments</h1>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="developments.html">Our Developments</a>
+      <a href="about.html">About Kroll</a>
     </div>
+  </div>
 
-    <div class="products-modal" id="productsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Our Projects</h2>
-                <button class="close-modal" onclick="closeProducts()">Close</button>
-            </div>
-            <div class="products-grid" id="productsGrid">
-            </div>
+  <!-- Hero -->
+  <section class="page-hero">
+    <h2>Our Projects</h2>
+    <p>Custom-built systems crafted in JavaScript, Lua, and HTML. Click any project to learn more.</p>
+  </section>
+
+  <!-- Products Grid -->
+  <section class="products-section">
+    <div class="products-grid" id="productsGrid"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer>Kroll Developments © 2026 | Est. 2025</footer>
+
+  <!-- Product Detail Modal -->
+  <div class="product-modal-overlay" id="productModalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="product-modal" id="productModal">
+      <!-- Banner with bg image + floating main image -->
+      <div class="modal-banner">
+        <div class="modal-banner-bg" id="modalBannerBg"></div>
+        <div class="modal-banner-overlay"></div>
+        <img class="modal-banner-img" id="modalBannerImg" src="" alt="" width="88" height="88" loading="lazy">
+        <button class="modal-close" id="modalCloseX" aria-label="Close">✕</button>
+      </div>
+      <!-- Body -->
+      <div class="modal-body">
+        <h3 id="modalTitle"></h3>
+        <div class="modal-price" id="modalPrice"></div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-footer">
+          <a class="btn-checkout" id="modalCheckout" href="#" target="_blank" rel="noopener noreferrer">Proceed to Checkout</a>
+          <button class="btn-close-modal" id="modalCloseBtn">Close</button>
         </div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        const products = [
-            { name: "Ticket System", image: "assets/product1.png", link: "products/product1.html", price: "$149" },
-            { name: "Character System", image: "assets/product2.png", link: "products/product2.html", price: "$199" },
-            { name: "Mail System", image: "assets/product3.png", link: "products/product3.html", price: "$129" },
-            { name: "Call System", image: "assets/product4.png", link: "products/product4.html", price: "$179" }
+  <script>
+    const products = [
+      {
+        name: "Ticket System",
+        image: "assets/product1.png",
+        bgImage: "assets/product1-bg.png",
+        link: "products/product1.html",
+        price: "$149",
+        desc: "A fully custom FiveM ticket system for staff and player support. Manage, track, and resolve tickets seamlessly within your server environment."
+      },
+      {
+        name: "Character System",
+        image: "assets/product2.png",
+        bgImage: "assets/product2-bg.png",
+        link: "products/product2.html",
+        price: "$199",
+        desc: "A robust character creation and management system. Supports multiple characters per player with full profile persistence and custom UI."
+      },
+      {
+        name: "Mail System",
+        image: "assets/product3.png",
+        bgImage: "assets/product3-bg.png",
+        link: "products/product3.html",
+        price: "$129",
+        desc: "An in-game mail system built for roleplay servers. Send, receive, and manage messages between players and factions with ease."
+      },
+      {
+        name: "Call System",
+        image: "assets/product4.png",
+        bgImage: "assets/product4-bg.png",
+        link: "products/product4.html",
+        price: "$179",
+        desc: "A realistic phone call system for FiveM roleplay. Features a custom UI, call history, and seamless integration with voice systems."
+      }
+    ];
 
-            // { name: "New Project", image: "assets/newproject.png", link: "products/newproject.html", price: "$159" }
-        ];
+    // Build cards
+    const grid = document.getElementById('productsGrid');
 
-        function showProducts() {
-            document.getElementById('productsModal').style.display = 'block';
-            loadProducts();
-        }
+    products.forEach((product, i) => {
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.setAttribute('role', 'button');
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('aria-label', `View ${product.name} — ${product.price}`);
 
-        function closeProducts() {
-            document.getElementById('productsModal').style.display = 'none';
-        }
+      card.innerHTML = `
+        <div class="card-bg" style="background-image: url('${product.bgImage}')"></div>
+        <div class="card-overlay"></div>
+        <img class="card-main-img"
+             src="${product.image}"
+             alt="${product.name}"
+             width="76" height="76" loading="lazy"
+             onerror="this.style.display='none'">
+        <div class="card-content">
+          <h3>${product.name}</h3>
+          <span class="price">${product.price}</span>
+        </div>
+      `;
 
-        function loadProducts() {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
+      card.addEventListener('click', () => openModal(i));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(i); }
+      });
 
-            products.forEach(product => {
-                const card = document.createElement('div');
-                card.className = 'product-card';
+      grid.appendChild(card);
+    });
 
-                if (product.image) {
-                    card.innerHTML = `
-                        <img src="${product.image}" alt="${product.name}" onerror="this.style.display='none'">
-                        <h3>${product.name}</h3>
-                        <p>${product.price}</p>
-                    `;
-                } else if (product.link) {
-                    card.innerHTML = `
-                        <h3>${product.name}</h3>
-                        <p>${product.price}</p>
-                    `;
-                } else {
-                    card.innerHTML = `
-                        <h3>${product.name}</h3>
-                        <p>Coming Soon</p>
-                    `;
-                }
+    // Modal elements
+    const overlay       = document.getElementById('productModalOverlay');
+    const modalBannerBg = document.getElementById('modalBannerBg');
+    const modalBannerImg= document.getElementById('modalBannerImg');
+    const modalTitle    = document.getElementById('modalTitle');
+    const modalPrice    = document.getElementById('modalPrice');
+    const modalDesc     = document.getElementById('modalDesc');
+    const modalCheckout = document.getElementById('modalCheckout');
 
-                if (product.link) {
-                    card.onclick = () => window.open(product.link, '_blank');
-                }
+    function openModal(index) {
+      const p = products[index];
 
-                grid.appendChild(card);
-            });
-        }
+      modalBannerBg.style.backgroundImage = `url('${p.bgImage}')`;
+      modalBannerImg.src = p.image;
+      modalBannerImg.alt = p.name;
+      modalTitle.textContent = p.name;
+      modalPrice.textContent = p.price;
+      modalDesc.textContent  = p.desc || '';
+      modalCheckout.href = p.link || '#';
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('productsModal');
-            if (event.target === modal) {
-                closeProducts();
-            }
-        }
+      overlay.classList.add('open');
+      document.getElementById('modalCloseX').focus();
+    }
 
-        showProducts();
-    </script>
+    function closeModal() {
+      overlay.classList.remove('open');
+    }
+
+    document.getElementById('modalCloseX').addEventListener('click', closeModal);
+    document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+
+    overlay.addEventListener('click', e => {
+      if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
 </body>
 </html>
